@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 public abstract class OmegaTeleOp extends OpMode {
@@ -44,8 +46,19 @@ public abstract class OmegaTeleOp extends OpMode {
         //dropOffCircles();
         //dropOffCubes();
 
-        telemetry.addLine("Arm")
-                .addData("Arm Position: ", robot.arm.arm.getCurrentPosition());
+        telemetry.addLine("Front Right")
+                .addData("front right pos", robot.drivetrain.frontRight.getCurrentPosition());
+        telemetry.addLine("Front Left")
+                .addData("front left pos", robot.drivetrain.frontLeft.getCurrentPosition());
+        telemetry.addLine("Back Right")
+                .addData("back right pos", robot.drivetrain.backRight.getCurrentPosition());
+        telemetry.addLine("Back Left")
+                .addData("back left pos", robot.drivetrain.backLeft.getCurrentPosition());
+
+        telemetry.addLine("DUCKKKKK")
+                .addData("duck", robot.intake.intake.getPower())
+                .addData("velo", robot.intake.intake.getVelocity(AngleUnit.RADIANS));
+
     }
 
     /*public void dropOffCircles(){
@@ -161,7 +174,7 @@ public abstract class OmegaTeleOp extends OpMode {
         // both our front wheel powers are set to negative because of gears
         double frontLeftPower = (vertical + horizontal + rotate);
         double backLeftPower = vertical - horizontal + rotate;
-        double frontRightPower = -(vertical - horizontal - rotate) * 0.4;
+        double frontRightPower = -(vertical - horizontal - rotate); // used to be * 0.4, idk y
         double backRightPower = vertical + horizontal - rotate;
 
         // if there is a power level that is out of range
@@ -209,6 +222,7 @@ public abstract class OmegaTeleOp extends OpMode {
     }
 
     public void intake(){
+
         if(gamepad2.left_bumper) {
             robot.intake.in();
         }
@@ -219,6 +233,20 @@ public abstract class OmegaTeleOp extends OpMode {
         else {
             robot.intake.stop();
         }
+
+        /*if(gamepad2.dpad_left){
+            robot.intake.fast();
+        }
+        else if(gamepad2.dpad_up){
+            robot.intake.faster();
+        }
+        else if(gamepad2.dpad_right){
+            robot.intake.fastest();
+        }
+
+        if(gamepad2.right_bumper){
+            robot.intake.intake.setPower(0.1);
+        }*/
     }
 
     public void trayTilt(){

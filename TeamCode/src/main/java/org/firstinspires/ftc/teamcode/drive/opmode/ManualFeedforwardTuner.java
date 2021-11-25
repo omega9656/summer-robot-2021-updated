@@ -40,7 +40,7 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  * Pressing B/O (Xbox/PS4) will cede control back to the tuning process.
  */
 @Config
-@Autonomous(group = "drive")
+@Autonomous(group = "drive", name = "FF")
 public class ManualFeedforwardTuner extends LinearOpMode {
     public static double DISTANCE = 72; // in
 
@@ -91,6 +91,8 @@ public class ManualFeedforwardTuner extends LinearOpMode {
 
         while (!isStopRequested()) {
             telemetry.addData("mode", mode);
+            telemetry.addData("pos", drive.getWheelPositions());
+            telemetry.addData("velo", drive.getWheelVelocities());
 
             switch (mode) {
                 case TUNING_MODE:
@@ -121,6 +123,8 @@ public class ManualFeedforwardTuner extends LinearOpMode {
                     telemetry.addData("targetVelocity", motionState.getV());
                     telemetry.addData("measuredVelocity", currentVelo);
                     telemetry.addData("error", motionState.getV() - currentVelo);
+                    telemetry.addData("power", drive.getWheelVelocities());
+
                     break;
                 case DRIVER_MODE:
                     if (gamepad1.b) {

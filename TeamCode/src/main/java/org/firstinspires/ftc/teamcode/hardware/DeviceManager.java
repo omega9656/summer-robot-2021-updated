@@ -18,7 +18,6 @@ public class DeviceManager {
 
     //Drivetrain Motors
     public DcMotorEx backLeft, backRight, frontLeft, frontRight;
-    public DcMotorEx leftEncoder, rightEncoder, midEncoder;
 
     //Device Initialization
     void init(boolean autoIsRunning){

@@ -23,7 +23,7 @@ public class Robot {
         if (!autoIsRunning) {
             drivetrain = new Drivetrain(deviceManager);
         }
-        intake = new Intake(deviceManager);
+        intake = new Intake(deviceManager); // TODO uncheck
         arm = new Arm(deviceManager);
         //flap = new Flap(deviceManager);
         //trayTilt = new TrayTilt(deviceManager);
