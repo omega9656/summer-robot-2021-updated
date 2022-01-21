@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.acmerobotics.roadrunner.trajectory.constraints.*;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
@@ -36,7 +37,7 @@ public class StrafeTest extends LinearOpMode {
 
         Pose2d poseEstimate = drive.getPoseEstimate();
         telemetry.addData("finalX", poseEstimate.getX());
-        telemetry.addData("finalY", poseEstimate.getY());
+        telemetry.addData("finalY", poseEstimate.getY() * drive.LATERAL_MULTIPLIER);
         telemetry.addData("finalHeading", poseEstimate.getHeading());
         telemetry.update();
 

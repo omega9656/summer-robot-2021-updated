@@ -19,6 +19,7 @@ public class Intake {
 
         currentPower = MotorPower.STOP; // default power is at STOP(0)
     }
+
     public enum MotorPower {
         // set the power for the intake at different states
         IN(-0.08), //-0.8

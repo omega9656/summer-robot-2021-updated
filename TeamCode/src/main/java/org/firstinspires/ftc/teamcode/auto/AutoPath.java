@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -9,11 +11,14 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 import java.util.List;
 
 @Autonomous(name="Remote Auto")
 public class AutoPath extends LinearOpMode {
+    SampleMecanumDrive drive;
+    Pose2d start = new Pose2d(0, 0, 0);
     /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
      * the following 4 detectable objects
      *  0: Ball,
@@ -62,10 +67,12 @@ public class AutoPath extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        drive = new SampleMecanumDrive(hardwareMap);
+        drive.setPoseEstimate(start);
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        initVuforia();
-        initTfod();
+        //initVuforia();
+        //initTfod();
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -88,7 +95,7 @@ public class AutoPath extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        if (opModeIsActive()) {
+        /*if (opModeIsActive()) {
             while (opModeIsActive()) {
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
@@ -120,7 +127,22 @@ public class AutoPath extends LinearOpMode {
                     }
                 }
             }
+        }*/
+        if(opModeIsActive() && !isStopRequested()){
+            executePath();
         }
+    }
+
+    public void executePath(){
+        Trajectory traj0 = drive.trajectoryBuilder(start)
+                .forward(30)
+                .build();
+        Trajectory traj1 = drive.trajectoryBuilder(traj0.end())
+                .strafeLeft(30)
+                .build();
+
+        drive.followTrajectory(traj0);
+        drive.followTrajectory(traj1);
     }
 
     /**

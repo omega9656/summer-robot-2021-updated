@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -12,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 /**
  * This 2020-2021 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -27,6 +31,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 @Autonomous(name = "AutoCV", group = "Concept")
 public class AutoConCV extends LinearOpMode{
     ElapsedTime time;
+
     /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
      * the following 4 detectable objects
      *  0: Ball,
@@ -77,14 +82,14 @@ public class AutoConCV extends LinearOpMode{
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        initVuforia();
-        initTfod();
+        //initVuforia();
+        //initTfod();
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
          **/
-        if (tfod != null) {
+        /*if (tfod != null) {
             tfod.activate();
 
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
@@ -100,7 +105,7 @@ public class AutoConCV extends LinearOpMode{
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
         waitForStart();
-
+/*
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 if (tfod != null) {
@@ -133,7 +138,7 @@ public class AutoConCV extends LinearOpMode{
                     }
                 }
             }
-        }
+        }*/
     }
 
         /**
@@ -147,6 +152,8 @@ public class AutoConCV extends LinearOpMode{
 
             parameters.vuforiaLicenseKey = VUFORIA_KEY;
             parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+            parameters.minWebcamAspectRatio = 720.0 / 480.0;
+            parameters.fillCameraMonitorViewParent = true;
 
             //  Instantiate the Vuforia engine
             vuforia = ClassFactory.getInstance().createVuforia(parameters);

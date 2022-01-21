@@ -11,10 +11,9 @@ public class DeviceManager {
 
     public DcMotorEx intake; //intake motor
     public DcMotorEx arm; //Lifts tray to point where blocks and balls are dropped off
-
+    //public DcMotorEx duckMech;
 
     public Servo trayTilt;
-    //public Servo flap;
 
     //Drivetrain Motors
     public DcMotorEx backLeft, backRight, frontLeft, frontRight;
@@ -27,11 +26,12 @@ public class DeviceManager {
             backRight = hardwareMap.get(DcMotorEx.class, "back_right");
             backLeft = hardwareMap.get(DcMotorEx.class, "back_left");
         }
-        intake = hardwareMap.get(DcMotorEx.class, "intake");
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
+        //intake = hardwareMap.get(DcMotorEx.class, "intake");
+        //arm = hardwareMap.get(DcMotorEx.class, "arm");
+
+        //duckMech = hardwareMap.get(DcMotorEx.class, "duck_mechanism");
 
         //trayTilt = hardwareMap.get(Servo.class, "tray_tilt");
-        //flap = hardwareMap.get(Servo.class, "flap");
     }
 
     public DeviceManager(HardwareMap hardwareMap){

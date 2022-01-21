@@ -11,13 +11,16 @@ public class Drivetrain {
     public DcMotorEx frontLeft;
     public DcMotorEx frontRight;
 
+    /***
+     * initializes motors with hardware from DeviceManager
+     * @param deviceManager - instantiates hardware with motors in code, passed in Robot class
+     */
     public Drivetrain(DeviceManager deviceManager){
         backLeft = deviceManager.backLeft;
         backRight = deviceManager.backRight;
 
         frontLeft = deviceManager.frontLeft;
         frontRight = deviceManager.frontRight;
-
 
         // set motor modes
         //backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -40,8 +43,8 @@ public class Drivetrain {
 
         // All motors should rotate toward the front of the robot
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
     }

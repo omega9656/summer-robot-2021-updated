@@ -11,6 +11,7 @@ public class Robot {
     public Flap flap;
     public TrayTilt trayTilt;
     public Intake intake;
+    public DuckMechanism duckMechanism;
 
     public Robot(HardwareMap hardwareMap) {
         deviceManager = new DeviceManager(hardwareMap);
@@ -23,8 +24,9 @@ public class Robot {
         if (!autoIsRunning) {
             drivetrain = new Drivetrain(deviceManager);
         }
-        intake = new Intake(deviceManager); // TODO uncheck
-        arm = new Arm(deviceManager);
+        //intake = new Intake(deviceManager); // TODO uncheck
+        //arm = new Arm(deviceManager);
+        //duckMechanism = new DuckMechanism(deviceManager);
         //flap = new Flap(deviceManager);
         //trayTilt = new TrayTilt(deviceManager);
     }

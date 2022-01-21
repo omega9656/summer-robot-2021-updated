@@ -11,11 +11,7 @@ public abstract class OmegaTeleOp extends OpMode {
     Robot robot;
     ElapsedTime time = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
 
-    final int RUN_MILLS = 1500;
-    final int RUN_MILLISECONDS = 1000;
-
     DriveMode driveMode;
-
 
     //different drive modes
     public enum DriveMode{
@@ -39,51 +35,33 @@ public abstract class OmegaTeleOp extends OpMode {
     public void loop() {
         drive(2, DriveMode.NORMAL);
         //trayTilt();
-        arm();
+        //arm();
         //flap();
-        intake();
-        moveArm();
+        //intake();
+        //moveArm();
         //dropOffCircles();
         //dropOffCubes();
 
         telemetry.addLine("Front Right")
+                .addData("front right pow", robot.drivetrain.frontRight.getPower())
+                .addData("front right port", robot.drivetrain.frontRight.getPortNumber())
                 .addData("front right pos", robot.drivetrain.frontRight.getCurrentPosition());
         telemetry.addLine("Front Left")
+                .addData("front left pow", robot.drivetrain.frontLeft.getPower())
+                .addData("front right port", robot.drivetrain.frontLeft.getPortNumber())
                 .addData("front left pos", robot.drivetrain.frontLeft.getCurrentPosition());
         telemetry.addLine("Back Right")
+                .addData("back right pow", robot.drivetrain.backRight.getPower())
                 .addData("back right pos", robot.drivetrain.backRight.getCurrentPosition());
         telemetry.addLine("Back Left")
+                .addData("back Left pow", robot.drivetrain.backLeft.getPower())
                 .addData("back left pos", robot.drivetrain.backLeft.getCurrentPosition());
 
-        telemetry.addLine("DUCKKKKK")
-                .addData("duck", robot.intake.intake.getPower())
-                .addData("velo", robot.intake.intake.getVelocity(AngleUnit.RADIANS));
+        //telemetry.addLine("DUCKKKKK")
+                //.addData("duck power", robot.duckMechanism.duckMech.getPower())
+                //.addData("duck velo", robot.duckMechanism.duckMech.getVelocity(AngleUnit.RADIANS));
 
     }
-
-    /*public void dropOffCircles(){
-
-        if(gamepad1.right_bumper ){
-            time.reset();
-            time.startTime();
-            while(time.milliseconds() < RUN_MILLS){
-                drive(DEFAULT_STRAFE,DriveMode.NORMAL);
-            }
-            robot.trayTilt.ready();
-            time.reset();
-            time.startTime();
-            while(time.milliseconds() < RUN_MILLISECONDS){
-                drive(DEFAULT_STRAFE, DriveMode.NORMAL);
-            }
-            robot.trayTilt.tilt();
-            time.reset();
-            time.startTime();
-            while(time.milliseconds() < RUN_MILLS){
-                drive(DEFAULT_STRAFE,DriveMode.NORMAL);
-            }
-            robot.trayTilt.ready();
-        }
-    }*/
 
     public void dropOff(boolean flap){
 
@@ -224,29 +202,15 @@ public abstract class OmegaTeleOp extends OpMode {
     public void intake(){
 
         if(gamepad2.left_bumper) {
-            robot.intake.in();
+            robot.duckMechanism.in();
         }
 
         else if(gamepad2.right_bumper) {
-            robot.intake.out();
+            robot.duckMechanism.fastIn();
         }
         else {
-            robot.intake.stop();
+            robot.duckMechanism.stop();
         }
-
-        /*if(gamepad2.dpad_left){
-            robot.intake.fast();
-        }
-        else if(gamepad2.dpad_up){
-            robot.intake.faster();
-        }
-        else if(gamepad2.dpad_right){
-            robot.intake.fastest();
-        }
-
-        if(gamepad2.right_bumper){
-            robot.intake.intake.setPower(0.1);
-        }*/
     }
 
     public void trayTilt(){
